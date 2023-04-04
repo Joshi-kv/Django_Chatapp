@@ -52,6 +52,14 @@ img{
     border-radius: 30px;
     padding: 10px 10px
 }
+.settings-container{
+    width: 350px;
+    height: 580px;
+    /* border: 2px solid black; */
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px 10px
+}
 .sub-main{
     /* border: 2px solid green; */
     width: 200px;
@@ -62,6 +70,7 @@ img{
 }
 .sub-main p{
     font-size: 18px;
+    margin-right: 1rem;
 }
 .main-user{
     width: 60px;
@@ -156,6 +165,46 @@ img{
     display: flex;
     align-items: center;
     justify-content: space-around;
+
+}
+.settings-footer{
+    width: 100%;
+    height: 40px;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items:end ;
+    justify-content: space-around;
+    /* margin-top: .3rem; */
+}
+
+.custom-file-upload {
+    border: 2px solid #ccc;
+    display: inline-block;
+    padding: 2rem 0 1rem 2rem;
+    /* margin-top: 3rem; */
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    height: 10rem;
+    width:10rem;
+    margin:3rem 6rem;
+    border-radius: 50%;
+  }
+  .custom-file-upload:hover {
+    background-color: #eee;
+  }
+  .custom-file-upload i {
+    margin-right: 8px;
+  }
+  #file-upload {
+    display: none;
+  }
+.pic-upload{
+    /* padding-right: 3rem; */
+    margin-top:2.5rem;
+}
+.logout-btn button{
+    margin: 2rem 7.8rem 3rem;
 }
 
 svg{
@@ -266,6 +315,10 @@ button{
    
 }
 
-a:active{
+a:active,:visited{
     color: #7f32cb;
+}
+
+a{
+    text-decoration: none;
 }

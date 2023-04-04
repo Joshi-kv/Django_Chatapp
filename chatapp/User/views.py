@@ -47,3 +47,11 @@ def login(request):
             messages.info(request,"Invalid Credentials")
             return redirect('User:login')
     return render(request,'login.html')
+
+
+def logout(request) :
+    auth.logout(request)
+    return redirect('User:login')
+
+def settings(request) :
+    return render(request,'settings.html')
