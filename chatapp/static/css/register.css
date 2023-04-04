@@ -24,8 +24,26 @@ body{
     /* display: flex;
     justify-content: center; */
 }
+.login-container{
+    width: 500px;
+    height: 450px;
+    background-color: slateblue;
+    padding: 10px 10px;
+    margin-top: 10rem;
+    border-radius: .5rem;
+    /* display: flex;
+    justify-content: center; */
+}
 
 .signup-form h3{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: larger
+}
+.login-form h3{
     text-align: center;
     color: rgb(255, 255, 255);
     margin-top: 3rem;
@@ -75,6 +93,13 @@ button[type="submit"] {
   }
 
   .signup-form a {
+    color: white;
+    float: left;
+    margin-top: 1.5rem;
+    text-decoration: none;
+    margin-left: 3rem;
+  }
+  .login-form a {
     color: white;
     float: left;
     margin-top: 1.5rem;

@@ -20,14 +20,19 @@
             <input type="email" name="email" placeholder='example@gmail.com' onblur='validateEmail(this)'><br>
             <input type="password" name="password" placeholder='Enter password'><br>
             <input type="password" name="confirm_password" placeholder='Retype password'><br>
-            <a href="">Already have an account</a>
+            <a href="{% url 'User:login' %}">Already have an account</a>
             <button type="submit">Signup</button>
         </form>
     </div>
 </div>
 
 <script src="{% static 'js/validate.js' %}"></script>
-
+{% comment %} <script>
+    const link = document.querySelector('a')
+    link.addEventListener('click',(e) =>{
+        console.log(e)
+    })
+</script> {% endcomment %}
 {% endblock content %}
 
 

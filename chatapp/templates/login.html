@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block styles %}
+
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+{% endblock styles %}
+
+
+{% block content %}
+
+<div class="login-container">
+    <div class="login-form">
+        <h3>User Login</h3>
+        <form action="">
+            <input autofocus type="text" name="username" placeholder='Enter username' required  ><br>
+            <input type="password" name="password" placeholder='Enter password'><br>
+            <a href="{% url 'User:signup' %}">Create an accout</a>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
