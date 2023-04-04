@@ -265,3 +265,7 @@ button{
     float: left;
    
 }
+
+a:active{
+    color: #7f32cb;
+}

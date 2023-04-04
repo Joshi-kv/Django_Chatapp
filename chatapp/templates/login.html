@@ -15,7 +15,15 @@
 <div class="login-container">
     <div class="login-form">
         <h3>User Login</h3>
-        <form action="">
+        <div class="error">
+            {% if messages %}
+            {% for message in messages  %}
+            <p>{{message}}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <form action="" method='post'>
+            {% csrf_token %}
             <input autofocus type="text" name="username" placeholder='Enter username' required  ><br>
             <input type="password" name="password" placeholder='Enter password'><br>
             <a href="{% url 'User:signup' %}">Create an accout</a>

@@ -116,3 +116,11 @@ button[type="submit"] {
     border: 1px solid rgb(27, 208, 27);
     outline: 1px solid rgb(107, 208, 107);
   }
+
+  .error p{
+    font-size: larger;
+    font-weight: bold;
+    font-style: italic;
+    color: rgb(244, 107, 107);
+    text-align: center;
+  }

@@ -15,7 +15,15 @@
 <div class="register-container">
     <div class="signup-form">
         <h3>User Registration</h3>
-        <form action="">
+        <div class="error">
+            {% if messages %}
+            {% for message in messages  %}
+            <p> {{message}}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <form action="" method='post'>
+            {% csrf_token %}
             <input autofocus type="text" name="username" placeholder='Enter username' required  ><br>
             <input type="email" name="email" placeholder='example@gmail.com' onblur='validateEmail(this)'><br>
             <input type="password" name="password" placeholder='Enter password'><br>
@@ -27,12 +35,7 @@
 </div>
 
 <script src="{% static 'js/validate.js' %}"></script>
-{% comment %} <script>
-    const link = document.querySelector('a')
-    link.addEventListener('click',(e) =>{
-        console.log(e)
-    })
-</script> {% endcomment %}
+
 {% endblock content %}
 
 
