@@ -12,17 +12,25 @@
      
             <div class="sub-main">
               <div class="main-user">
-                <img src="{{user.pic.url}}" alt="profile picture" />
+                {% if user.is_authenticated %}
+                <img src="{{user_profile.profile_pic.url}}" alt="profile picture" />
+                {% else %}
+                <img src="" alt="profile" >
+                {% endif %}
               </div>
-              <p>{{user.username}}</p>
+              <p>{{user_profile.user}}</p>
             </div>
           </div>
           <div class="header">Settings</div>
           <div class="settings-form">
-            <label for="file-upload" class="custom-file-upload">
+            <form action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <label for="file-upload" class="custom-file-upload">
                 <span class="pic-upload">Upload Photo</span>
             </label>
-              <input id="file-upload" type="file" />
+              <input name="profile" id="file-upload" type="file" />
+              <button class="save-btn" type="submit">Save </button>
+            </form>
           </div>
           <div class="logout-btn">
             <a href="{% url 'User:logout' %}"><button>Logout</button></a>

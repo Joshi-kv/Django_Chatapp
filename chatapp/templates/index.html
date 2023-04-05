@@ -12,9 +12,14 @@
 
       <div class="sub-main">
         <div class="main-user">
-          <img src="{{user.pic.url}}" alt="profile picture" />
+          {% if user.is_authenticated %}
+          <img src="{{user_profile.profile_pic.url}}" alt="profile picture" />
+          {% else %}
+          <img src="" alt="profile" >
+          {% endif %}
+         
         </div>
-        <p>{{user.username}}</p>
+        <p>{{user_profile.user}}</p>
       </div>
     </div>
  

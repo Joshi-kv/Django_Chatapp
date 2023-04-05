@@ -204,7 +204,7 @@ img{
     margin-top:2.5rem;
 }
 .logout-btn button{
-    margin: 2rem 7.8rem 3rem;
+    margin: 1rem 7.8rem 2rem;
 }
 
 svg{
@@ -321,4 +321,9 @@ a:active,:visited{
 
 a{
     text-decoration: none;
+}
+
+.save-btn{
+    margin-top: -1rem;
+    margin-left: 7.7rem;
 }

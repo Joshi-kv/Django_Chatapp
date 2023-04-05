@@ -54,4 +54,12 @@ def logout(request) :
     return redirect('User:login')
 
 def settings(request) :
-    return render(request,'settings.html')
+    user_profile = Profile.objects.get(user=request.user)
+    if request.method == "POST" :
+        image = request.FILES.get('profile')
+        user_profile.profile_pic = image
+        user_profile.save()
+    context = {
+        'user_profile':user_profile
+    }
+    return render(request,'settings.html',context)
