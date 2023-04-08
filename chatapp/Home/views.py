@@ -1,6 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from User.models import Profile,Friend
+from django.contrib import messages
 # Create your views here.
 @login_required(login_url='User:login')
 def index(request):
@@ -27,9 +29,13 @@ def add_friend(request, friend_id):
     user_profile = Profile.objects.get(user=request.user)
     # Get the Profile object for the friend to be added
     friend_profile = Profile.objects.get(id=friend_id)
-    # Create a new Friend object for the friend to be added
-    new_friend = Friend.objects.create(profile=friend_profile)
-    # Add the new Friend object to the current user's friends list
-    user_profile.friends.add(new_friend)
-
-    return redirect("Home:index")
+    # Check if the friend is already in the current user's friend list
+    if user_profile.friends.filter(profile=friend_profile).exists():
+        return JsonResponse({"success": True, "message": "Already your friend"})
+    else:
+        # Create a new Friend object for the friend to be added
+        new_friend = Friend.objects.create(profile=friend_profile)
+        # Add the new Friend object to the current user's friends list
+        user_profile.friends.add(new_friend)
+        # Redirect to the home page
+        return JsonResponse({"success": True})

@@ -24,25 +24,25 @@
     </div>
  
     <div class="header">Add Friends</div>
-    
+
     <div class="friends-container">
-     
       {% for friend in friends %}
-      
-      <a href="{% url 'Home:addfriends' friend.id %}" style="color:black; text-decoration: none">
-        
-      <div class="friends">
-        <div class="pic">
-          <img src="{{friend.profile_pic.url}}" alt="" />
-        </div>
-        <div class="name">
+        <div class="friends" id="friend-{{friend.id}}">
+          <div class="pic">
+            <img src="{{friend.profile_pic.url}}" alt="" />
+          </div>
+          <div class="name">
             <h5>{{friend.user}}</h5>
           </div>
-      </div>      
-  </a>
-  {% endfor %}
-
-</div>
+          <div>
+              <a href="{% url 'Home:addfriends' friend.id %}" data-friend-id="{{ friend.id }}" onclick="addFriend(event, {{ friend.id }})">
+                <i  class="fa fa-solid fa-square-plus fa-2x"></i>
+              </a> 
+            </form>
+          </div>
+        </div>  
+      {% endfor %}
+    </div>
 
     <div class="footer">
       <div>
@@ -109,6 +109,48 @@
       </div>
     </div>
   </div>
+  
+  <script>
+    function addFriend(event, friendId) {
+      event.preventDefault()
+      const url = `/add-friends/${friendId}/`
+      // Send a fetch request to add the friend to the database
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({})
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Network response was not ok.");
+        }
+      })
+      .then(data => {
+        if (data.success) {
+          if (data.message) {
+            alert(data.message);
+          } else {
+            //alert("Friend added successfully");
+            window.location.href="{% url 'Home:index' %}"
+          }
+        } else {
+          alert("An error occurred while adding the friend. Please try again later.");
+        }
+      })
+      .catch(error => {
+        //console.error("Error adding friend:", error);
+        alert("An error occurred while adding the friend. Please try again later.");
+      });
+    }
+  </script>
+  
+    
+
 {% endblock content %}
 
 

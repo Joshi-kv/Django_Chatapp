@@ -7,7 +7,7 @@ from . models import Profile
 
 def signup(request):
     if request.method == 'POST':  
-        username = request.POST['username']  
+        username = request.POST['username'] 
         email = request.POST['email']  
         password = request.POST['password']  
         confirm_password = request.POST['confirm_password']  
