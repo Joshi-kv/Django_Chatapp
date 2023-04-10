@@ -39,3 +39,11 @@ def add_friend(request, friend_id):
         user_profile.friends.add(new_friend)
         # Redirect to the home page
         return JsonResponse({"success": True})
+
+
+def chat_page(request,friend_id):
+    friend = Friend.objects.get(id=friend_id)
+    context = {
+        'friend' : friend
+    }
+    return render(request,'chat_page.html',context)

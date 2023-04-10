@@ -327,3 +327,21 @@ a{
     margin-top: -1rem;
     margin-left: 7.7rem;
 }
+
+.send-btn{
+    width: 2.5rem;
+    margin-left: 1rem;
+}
+
+#myform{
+    margin-top: 7rem;
+}
+
+.message-type-box{
+    height: 3rem;
+    width: 80%;
+    padding-left: 1rem;
+    border-radius: 3rem;
+    margin-top: 1rem;
+    font-size: medium;
+}
