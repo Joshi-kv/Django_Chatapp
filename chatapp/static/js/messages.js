@@ -11,9 +11,22 @@ let endpoint = wsStart + loc.host + loc.pathname
 
 let socket = new WebSocket(endpoint)
 
+let messageInput = $('#message')
+let messageForm = $('#message-form')
 
-socket.onopen = async (e)=>{
+socket.onopen = async function(e){
     console.log('On open',e)
+    messageForm.submit((e)=>{
+        e.preventDefault()
+        let msg = messageInput.val()
+        let data = {
+            'message':msg
+        }
+        data = JSON.stringify(data)
+        //sending message to backend
+        socket.send(data)
+        messageForm[0].reset()
+    })
 }
 
 socket.onmessage = async (e)=>{

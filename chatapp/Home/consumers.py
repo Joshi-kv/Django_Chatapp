@@ -1,5 +1,5 @@
 import json
-from channels.consumer import AsyncConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.contrib.auth import get_user_model
 
@@ -8,12 +8,12 @@ User = get_user_model()
 
 #it accepts websocket connection from frontend
 
-class chatConsumer(AsyncConsumer):
+class chatConsumer(AsyncWebsocketConsumer):
     
     #it calls when websocket connection established.
     async def websocket_connect(self,event):
         print('connected',event)
-        
+        await self.accept()
         
     #it calls when message received.
     async def websocket_receive(self,event):
