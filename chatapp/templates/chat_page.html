@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block title %}Message{% endblock title %}
 
@@ -65,5 +67,7 @@
     </div>
 
 </div>
+
+<script src="{% static 'js/messages.js' %}"></script>
 
 {% endblock content %}
