@@ -44,17 +44,12 @@
 
 
         <div class="chat-body" id="chat-body">
-            {% for i in chat %}
-            {% if i.sender == user and i.receiver == profile %}
             <div class="chat-box-sent">
-                {{i}}
+                hello
             </div>
-            {% elif i.sender == profile and i.receiver == user %}
             <div class="chat-box-received">
-                {{i}}
+                hi
             </div>
-            {% endif %}
-            {% endfor %}
         </div>
     
         <form  id="message-form" method="POST">
