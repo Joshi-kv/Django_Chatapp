@@ -31,10 +31,10 @@
            </a>
         </div>
 
-        <h3>{{friend.profile.user}}</h3>
+        <h3>{{user_profile.user}}</h3>
 
         <div class="pro-pic">
-            <img src="{{friend.profile.profile_pic.url}}" alt="profile-picture">
+            <img src="{{user_profile.profile_pic.url}}" alt="profile-picture">
         </div>
 
 
@@ -62,7 +62,8 @@
     </div>
 
 </div>
-
+{{user_obj.id|json_script:"json-username"}}
+{{request.user.username|json_script:"json-message-username"}}
 <script src="{% static 'js/messages.js' %}"></script>
 
 {% endblock content %}

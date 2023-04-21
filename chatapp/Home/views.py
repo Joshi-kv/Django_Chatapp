@@ -1,16 +1,18 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from User.models import Profile,Friend
-from django.contrib import messages
+from User.models import Profile,Friend,User
+from django.db.models import Subquery, OuterRef
 # Create your views here.
 @login_required(login_url='User:login')
 def index(request):
     user_profile = Profile.objects.get(user=request.user)
-    added_friends = user_profile.friends.all()
+
+    friends = user_profile.friends.all()
     context = {
-        "user_profile":user_profile,
-        "added_friends":added_friends,
+        "user_profile": user_profile,
+
+        "friends": friends,
     }
     return render(request,'index.html',context)
 
@@ -41,9 +43,12 @@ def add_friend(request, friend_id):
         return JsonResponse({"success": True})
 
 
-def chat_page(request,friend_id):
-    friend = Friend.objects.get(id=friend_id)
+def chat_page(request,username):
+    user_obj = User.objects.get(username=username)
+    user_profile = Profile.objects.get(user=user_obj)
     context = {
-        'friend' : friend
+
+        'user_obj':user_obj,
+        'user_profile':user_profile
     }
     return render(request,'chat_page.html',context)

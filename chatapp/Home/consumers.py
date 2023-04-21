@@ -13,6 +13,30 @@ class chatConsumer(AsyncWebsocketConsumer):
     #it calls when websocket connection established.
     async def websocket_connect(self,event):
         print('connected',event)
+        
+        #fetching users id 
+        
+        current_user_id = self.scope['user'].id
+        other_user_id = self.scope['url_route']['kwargs']['id']
+        
+        #creating chat room using users id
+        
+        if int(current_user_id) > int(other_user_id) :
+            self.room_name = f'{current_user_id}-{other_user_id}'
+        else :
+            self.room_name = f'{other_user_id}-{current_user_id}'
+            
+        print(self.room_name)
+        
+        self.room_group_name = f'chat_{self.room_name}'
+        
+        #adding group to channel layers
+        
+        await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name,
+        )
+                    
         #accept established socket connection
         await self.accept()
         
@@ -20,22 +44,11 @@ class chatConsumer(AsyncWebsocketConsumer):
     async def websocket_receive(self,event):
         print('received',event)
         
-        #converting json string into python object
-        received_message = json.loads(event['text']).get('message')
-        print(received_message)
-        
-        if not received_message:
-            return False
-        response = {
-            'message' : received_message
-        }
-        
-        #sending message received on backend to frontend by converting python object into json string
-        
-        response_str = json.dumps(response)
-        await self.send(response_str)
-        
         
     #it calls when websocket disconnected.
     async def websocket_disconnect(self,event):
         print('disconnected',event)
+        self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_layer
+        )

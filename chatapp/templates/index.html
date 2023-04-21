@@ -27,16 +27,17 @@
     
     <div class="friends-container">
      
-      {% for added_friend in added_friends %}
+      {% for friend in friends %}
       
-      <a href="{% url 'Home:chat' added_friend.id %}" style="color:black; text-decoration: none">
-        
+
+      <a href="{% url 'Home:chat' username=friend.profile.user  %}" style="color:black; text-decoration: none">
+
       <div class="friends">
         <div class="pic">
-          <img src="{{added_friend.profile.profile_pic.url}}" alt="" />
+          <img src="{{friend.profile.profile_pic.url}}" alt="" />
         </div>
         <div class="name">
-          <h5>{{added_friend.profile}}</h5>
+          <h5>{{friend.profile}}</h5>
           <p>How are you doing today</p>
         </div>
         <div class="time_new_msg">
