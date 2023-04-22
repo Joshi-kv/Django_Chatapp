@@ -53,7 +53,6 @@ socket.onmessage = async (e)=>{
         <div class="chat-box-sent">
             ${message}
         </div>
-        
         `
     }else{
 

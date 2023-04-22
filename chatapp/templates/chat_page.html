@@ -42,16 +42,29 @@
 
     <div class="sub-container">
 
-
-        <div class="chat-body" id="chat-body">
+    <div class="chat-body" id="chat-body">
+        
+        {% for message in messages  %}
+        
+        {% if message.sender == request.user.username %}
+        
             <div class="chat-box-sent">
-                hello
+                {{message.message}}
             </div>
+
+
+            {% else %}
+
+
             <div class="chat-box-received">
-                hi
+                {{message.message}}
             </div>
-        </div>
-    
+
+        {% endif %}
+
+        {% endfor %}
+        
+    </div>    
         <form  id="message-form" method="POST">
             {% csrf_token %}
             <input autofocus class="message-type-box" type="text"  id="message" placeholder="Type your message....">

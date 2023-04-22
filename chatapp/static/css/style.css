@@ -345,3 +345,16 @@ a{
     margin-top: 1rem;
     font-size: medium;
 }
+
+.empty p{
+    text-align: center;
+    justify-content: center;
+    margin-top: 8rem;
+    color: grey;
+}
+
+.user-profile img {
+    width: 30px;
+    height: 30px;
+}
+

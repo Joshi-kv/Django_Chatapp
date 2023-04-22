@@ -2,6 +2,8 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.contrib.auth import get_user_model
+from .models import ChatMessage
+
 
 User = get_user_model()
 
@@ -47,6 +49,7 @@ class chatConsumer(AsyncWebsocketConsumer):
         message = data['message']
         sender = data['sender']
         
+        await self.save_message(sender,self.room_group_name,message)
         
         #sending received message on backend to frontend
         
@@ -77,3 +80,9 @@ class chatConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.channel_layer
         )
+        
+     #function to save message on db.   
+    @database_sync_to_async
+    
+    def save_message(self,sender,thread_name,message):
+        ChatMessage.objects.create(sender=sender,thread_name=thread_name,message=message)
