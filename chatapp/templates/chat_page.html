@@ -54,7 +54,7 @@
     
         <form  id="message-form" method="POST">
             {% csrf_token %}
-            <input class="message-type-box" type="text"  id="message" placeholder="Type your message....">
+            <input autofocus class="message-type-box" type="text"  id="message" placeholder="Type your message....">
             <button type = "submit" class="send-btn"><i class="fa fa-solid fa-paper-plane"></i></button>
         </form>
 

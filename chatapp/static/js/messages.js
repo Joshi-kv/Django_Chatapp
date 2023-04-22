@@ -1,7 +1,7 @@
 let loc = window.location
 let wsStart = 'ws://'
 let id = JSON.parse(document.getElementById('json-username').textContent)
-let senderId = JSON.parse(document.getElementById('json-message-username').textContent)
+let sender = JSON.parse(document.getElementById('json-message-username').textContent)
 
 if (loc.protocol === 'https') {
     let wsStart = 'wss://'
@@ -24,29 +24,47 @@ let messageForm = $('#message-form')
 
 socket.onopen = async function(e){
     console.log('On open',e)
-    // messageForm.submit((e)=>{
-    //     e.preventDefault()
-    //     let msg = messageInput.val()
-    //     let data = {
-    //         'message':msg
-    //     }
+    messageForm.submit((e)=>{
+        e.preventDefault()
+        let message = messageInput.val()
+        let data = {
+            'message':message,
+            'sender':sender
+        }
 
-    //     //converting json object to json string
-    //     data = JSON.stringify(data)
-    //     //sending message to backend
-    //     socket.send(data)
-    //     messageForm[0].reset()
-    // })
+        //converting json object to json string
+        data = JSON.stringify(data)
+        //sending message to backend
+        socket.send(data)
+        messageForm[0].reset()
+    })
 }
 
 socket.onmessage = async (e)=>{
     console.log('On message',e)
     let data = JSON.parse(e.data)
-    let message = data['message']
-    let messageDiv = document.createElement('div')
-    messageDiv.classList.add('chat-box-sent')
-    messageDiv.innerText = message
-    chatBody.append(messageDiv)
+    const message = data['message']
+    
+    //appending message received from backend
+
+    if(data['sender'] == sender){
+        chatBody.innerHTML += `
+        
+        <div class="chat-box-sent">
+            ${message}
+        </div>
+        
+        `
+    }else{
+
+        chatBody.innerHTML += `
+        
+        <div class="chat-box-received">
+            ${message}
+        </div>
+        
+        `
+    }
 
 }
 

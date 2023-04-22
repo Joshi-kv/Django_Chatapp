@@ -43,7 +43,32 @@ class chatConsumer(AsyncWebsocketConsumer):
     #it calls when message received.
     async def websocket_receive(self,event):
         print('received',event)
+        data = json.loads(event['text'])
+        message = data['message']
+        sender = data['sender']
         
+        
+        #sending received message on backend to frontend
+        
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                'type' : 'chat_message',
+                'message' : message,
+                'sender' : sender
+            }
+        )
+        
+        
+        
+    async def chat_message(self,event) :
+        message = event['message']
+        sender = event['sender']
+        
+        await self.send(json.dumps({
+            'message' : message,
+            'sender' : sender
+        }))    
         
     #it calls when websocket disconnected.
     async def websocket_disconnect(self,event):
