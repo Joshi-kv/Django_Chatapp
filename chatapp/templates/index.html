@@ -30,20 +30,18 @@
       {% for friend in friends %}
       
 
-      <a href="{% url 'Home:chat' username=friend.profile.user  %}" style="color:black; text-decoration: none">
+      <a href="{% url 'Home:chat' username=friend.user.username  %}" style="color:black; text-decoration: none">
 
       <div class="friends">
         <div class="pic">
-          <img src="{{friend.profile.profile_pic.url}}" alt="" />
+          <img src="{{friend.profile_pic.url}}" alt="" />
         </div>
         <div class="name">
-          <h5>{{friend.profile}}</h5>
-          <p>How are you doing today</p>
+          <h5>{{friend.user}}</h5>
         </div>
         <div class="time_new_msg">
-          {% comment %} <p>7:30am</p> {% endcomment %}
   
-        <div class="msg">0</div>
+        <div class="msg"><i class="fa fa-solid fa-bell"></i></div>
   
           
         </div>
@@ -56,7 +54,7 @@
 
     <div class="footer">
       <div>
-        <a href="{% url 'Home:friendslist' %}">
+        <a href="#">
           <svg
           xmlns="http://www.w3.org/2000/svg"
           width="26"
