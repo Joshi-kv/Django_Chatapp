@@ -1,8 +1,8 @@
 
 let onlineLocation = window.location
 let onlineWsStart = 'ws://'
-// let id = JSON.parse(document.getElementById('json-username').textContent)
-// let sender = JSON.parse(document.getElementById('json-message-username').textContent)
+
+let loggedinUser = JSON.parse(document.getElementById('json-message-username').textContent)
 
 if (onlineLocation.protocol === 'https') {
     let onlineWsStart = 'wss://'
@@ -10,12 +10,18 @@ if (onlineLocation.protocol === 'https') {
 
 let onlineEndpoint = onlineWsStart + onlineLocation.host + '/online/' 
 
-let onlineSocket = new WebSocket(onlineEndpoint)
+let onlineStatus = new WebSocket(onlineEndpoint)
 
-onlineSocket.onopen = function (e) {
+onlineStatus.onopen = function (e) {
     console.log('online connection ',e);
+
+    //sending logged user data to consumer
+    onlineStatus.send(JSON.stringify({
+        'username':loggedinUser,
+        'type':'open'
+    })) 
 }
 
-onlineSocket.onclose = function (e) {
+onlineStatus.onclose = function (e) {
     console.log('online connection lost ',e);
 }

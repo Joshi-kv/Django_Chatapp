@@ -3,7 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.contrib.auth import get_user_model
 from .models import ChatMessage
-
+from User.models import Profile
 
 User = get_user_model()
 
@@ -99,9 +99,32 @@ class OnlineStatusConsumer(AsyncWebsocketConsumer):
         
         await self.accept()
         
+        #receiving user data send from websocket
+    async def websocket_receive(self,event):
+        data = json.loads(event['text'])
+        username = data['username']
+        connection_type = data['type']
+ 
+        
+        await self.change_online_status(username,connection_type)
+
+        
     async def websocket_disconnect(self, event):
         self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
         )
         
+    #function to change online status
+    
+    @database_sync_to_async
+    def change_online_status(self,username,connection_type) :
+        user = User.objects.get(username=username)
+        user_profile = Profile.objects.get(user=user)
+        
+        if connection_type == 'open' :
+            user_profile.is_online = True
+            user_profile.save()
+        else : 
+            user_profile.is_online = False
+            user_profile.save()

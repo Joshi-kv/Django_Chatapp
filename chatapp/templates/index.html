@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Chat App{% endblock title %}
 
@@ -117,6 +118,9 @@
       </div>
     </div>
   </div>
+
+  {{request.user.username|json_script:"json-message-username"}}
+  <script src="{% static 'js/online_status.js' %}"></script>
 
 {% endblock content %}
 
