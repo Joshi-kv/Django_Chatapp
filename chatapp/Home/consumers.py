@@ -32,7 +32,7 @@ class chatConsumer(AsyncWebsocketConsumer):
         
         self.room_group_name = f'chat_{self.room_name}'
         
-        #adding group to channel layers
+        #adding group name to channel layers
         
         await self.channel_layer.group_add(
             self.room_group_name,
@@ -86,3 +86,22 @@ class chatConsumer(AsyncWebsocketConsumer):
     
     def save_message(self,sender,thread_name,message):
         ChatMessage.objects.create(sender=sender,thread_name=thread_name,message=message)
+        
+        
+class OnlineStatusConsumer(AsyncWebsocketConsumer):
+    async def websocket_connect(self, event) :
+        print('online',event)
+        self.room_group_name = 'user'
+        await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name
+        )
+        
+        await self.accept()
+        
+    async def websocket_disconnect(self, event):
+        self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name
+        )
+        

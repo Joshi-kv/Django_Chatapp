@@ -7,6 +7,7 @@ User = get_user_model()
 class Profile(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pic',null=True,default="no-user.png")
+    is_online = models.BooleanField(default=False)
     # friends = models.ManyToManyField("Friend",related_name="friend_profile") 
 
     
