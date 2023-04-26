@@ -22,6 +22,10 @@ onlineStatus.onopen = function (e) {
     })) 
 }
 
+onlineStatus.onmessage = function(e) {
+    console.log(e);
+}
+
 onlineStatus.onclose = function (e) {
     console.log('online connection lost ',e);
 }

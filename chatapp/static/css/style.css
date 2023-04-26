@@ -358,3 +358,26 @@ a{
     height: 30px;
 }
 
+
+.online{
+    border: 3px double #0add0a; 
+    outline: 1px solid #02a202;
+}
+
+.offline{
+    border: 3px double grey;
+    outline: 1px solid grey;
+}
+
+.online-caption{
+    font-size: x-small;
+    padding-left: .4rem;
+    width: 2.4rem;
+    margin-left: .3rem;
+    margin-top: -.4rem;
+    background-color: rgb(7, 191, 7);
+    border-radius: 2rem;
+    color: #fff;
+    font-weight: 600;
+    
+}

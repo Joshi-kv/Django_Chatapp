@@ -35,7 +35,13 @@
 
       <div class="friends">
         <div class="pic">
-          <img src="{{friend.profile_pic.url}}" alt="" />
+          {% if friend.is_online %}
+          <img class='online' src="{{friend.profile_pic.url}}" alt="" />
+          <figcaption class='online-caption'>Active</figcaption>
+          {% else %}
+          <img class='offline' src="{{friend.profile_pic.url}}" alt="" />
+          {% endif %}
+          
         </div>
         <div class="name">
           <h5>{{friend.user}}</h5>

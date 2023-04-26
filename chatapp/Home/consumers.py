@@ -108,6 +108,15 @@ class OnlineStatusConsumer(AsyncWebsocketConsumer):
         
         await self.change_online_status(username,connection_type)
 
+    async def send_online_status(self,event) : 
+        data = json.loads(event['value'])
+        username = data['username']
+        online_status = data['online_status']
+        
+        await self.send(text_data=json.dumps({
+            'username' : username,
+            'online_status' : online_status,
+        }))
         
     async def websocket_disconnect(self, event):
         self.channel_layer.group_discard(
