@@ -34,7 +34,14 @@
         <h3>{{user_profile.user}}</h3>
 
         <div class="pro-pic">
-            <img src="{{user_profile.profile_pic.url}}" alt="profile-picture">
+            {% if user_profile.is_online %}
+                <img class='online'  src="{{user_profile.profile_pic.url}}" alt="profile-picture">
+                <figcaption class='online-caption'>Active</figcaption>
+            {% else %}
+                <img class='offline'  src="{{user_profile.profile_pic.url}}" alt="profile-picture">
+                <figcaption class='offline-caption'>Offline</figcaption>
+            {% endif %}
+            
         </div>
 
 

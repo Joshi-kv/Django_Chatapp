@@ -36,10 +36,11 @@
       <div class="friends">
         <div class="pic">
           {% if friend.is_online %}
-          <img class='online' src="{{friend.profile_pic.url}}" alt="" />
+          <img class='online' src="{{friend.profile_pic.url}}" id="{{friend.user}}-image" alt="" />
           <figcaption class='online-caption'>Active</figcaption>
           {% else %}
-          <img class='offline' src="{{friend.profile_pic.url}}" alt="" />
+          <img class='offline' src="{{friend.profile_pic.url}}" id="{{friend.user}}-image" alt="" />
+          <figcaption class='offline-caption'>Offline</figcaption>
           {% endif %}
           
         </div>
@@ -126,6 +127,10 @@
   </div>
 
   {{request.user.username|json_script:"json-message-username"}}
+  {% for i in friends  %}
+  {{i.user.username|json_script:'json-other-username'}}
+  {% endfor %}
+
   <script src="{% static 'js/online_status.js' %}"></script>
 
 {% endblock content %}

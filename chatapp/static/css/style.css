@@ -381,3 +381,16 @@ a{
     font-weight: 600;
     
 }
+
+.offline-caption{
+    font-size: x-small;
+    padding-left: .4rem;
+    width: 2.4rem;
+    margin-left: .3rem;
+    margin-top: -.4rem;
+    background-color: grey;
+    border-radius: 2rem;
+    color: #fff;
+    font-weight: 600;
+    
+}
