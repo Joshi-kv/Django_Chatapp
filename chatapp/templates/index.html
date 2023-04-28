@@ -68,7 +68,7 @@
           width="26"
           height="26"
           fill="currentColor"
-          class="bi bi-person-plus"
+          class="bi bi-person-plus disabled"
           viewBox="0 0 16 16"
         >
           <path
@@ -128,6 +128,7 @@
 
   {{request.user.username|json_script:"json-message-username"}}
   <script src="{% static 'js/online_status.js' %}"></script>
+  <script src="{% static 'js/notification.js' %}"></script>
 
 {% endblock content %}
 

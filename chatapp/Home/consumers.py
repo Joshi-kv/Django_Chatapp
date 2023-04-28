@@ -90,7 +90,6 @@ class chatConsumer(AsyncWebsocketConsumer):
         
 class OnlineStatusConsumer(AsyncWebsocketConsumer):
     async def websocket_connect(self, event) :
-        print('online',event)
         self.room_group_name = 'user'
         await self.channel_layer.group_add(
             self.room_group_name,
@@ -137,3 +136,26 @@ class OnlineStatusConsumer(AsyncWebsocketConsumer):
         else : 
             user_profile.is_online = False
             user_profile.save()
+            
+            
+#consumer for notification
+class NotificationConsumer(AsyncWebsocketConsumer):
+    async def websocket_connect(self, message):
+        print('Notification Consumer connectd',message)
+        user_id = self.scope['user'].id
+        self.room_group_name = f'{user_id}'
+        
+        await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name
+        )
+        
+        await self.accept()
+        
+    async def websocket_disconnect(self, message):
+        print("Notification consumer disconnected",message)
+        
+        await self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name
+        )
