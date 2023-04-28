@@ -35,11 +35,11 @@
 
         <div class="pro-pic">
             {% if user_profile.is_online %}
-                <img class='online'  src="{{user_profile.profile_pic.url}}" alt="profile-picture">
-                <figcaption class='online-caption'>Active</figcaption>
+                <img class='online'  src="{{user_profile.profile_pic.url}}" id="{{user_profile.user}}-image"  alt="profile-picture">
+                <figcaption class='online-caption' id="{{user_profile.user}}-caption" >Active</figcaption>
             {% else %}
-                <img class='offline'  src="{{user_profile.profile_pic.url}}" alt="profile-picture">
-                <figcaption class='offline-caption'>Offline</figcaption>
+                <img class='offline'  src="{{user_profile.profile_pic.url}}" id="{{user_profile.user}}-image" alt="profile-picture">
+                <figcaption class='offline-caption' id="{{user_profile.user}}-caption">Offline</figcaption>
             {% endif %}
             
         </div>
