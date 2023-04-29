@@ -37,6 +37,7 @@ socket.onopen = async function(e){
         //sending message to backend
         socket.send(data)
         messageForm[0].reset()
+        chatBody.scrollTop = chatBody.scrollHeight
     })
 }
 
@@ -64,6 +65,7 @@ socket.onmessage = async (e)=>{
         
         `
     }
+    chatBody.scrollTop = chatBody.scrollHeight
 
 }
 
@@ -73,4 +75,8 @@ socket.onerror = async (e)=>{
 
 socket.onclose = async (e)=>{
     console.log('On close',e)
+}
+
+window.onload = function() {
+    chatBody.scrollTop = chatBody.scrollHeight
 }
