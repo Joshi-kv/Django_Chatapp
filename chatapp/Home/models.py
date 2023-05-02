@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
-User = get_user_model()
+
 # Create your models here.
 
 #model to save messages
@@ -18,10 +18,11 @@ class ChatMessage(models.Model) :
     
     
 #model for chat notification
-class ChatNotification(models.Model):
+class Notification(models.Model):
     chat = models.ForeignKey(to=ChatMessage,on_delete=models.CASCADE)
-    user = models.ForeignKey(to=User,on_delete=models.CASCADE)
+    sender = models.ForeignKey(to=User,on_delete=models.CASCADE,related_name='sender')
+    receiver = models.ForeignKey(to=User,on_delete=models.CASCADE,related_name='receiver')
     is_seen = models.BooleanField(default=False)
     
     def __str__(self):
-        return f'{self.user.username}'
+        return f'{self.chat} from {self.sender} to {self.receiver}'

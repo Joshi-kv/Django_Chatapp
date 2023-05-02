@@ -2,7 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.contrib.auth import get_user_model
-from .models import ChatMessage
+from .models import ChatMessage,Notification
 from User.models import Profile
 
 User = get_user_model()
@@ -48,8 +48,9 @@ class chatConsumer(AsyncWebsocketConsumer):
         data = json.loads(event['text'])
         message = data['message']
         sender = data['sender']
+        receiver = data['receiver']
         
-        await self.save_message(sender,self.room_group_name,message)
+        await self.save_message(sender,self.room_group_name,message,receiver)
         
         #sending received message on backend to frontend
         
@@ -84,10 +85,16 @@ class chatConsumer(AsyncWebsocketConsumer):
      #function to save message on db.   
     @database_sync_to_async
     
-    def save_message(self,sender,thread_name,message):
-        ChatMessage.objects.create(sender=sender,thread_name=thread_name,message=message)
+    def save_message(self,sender,thread_name,message,receiver):
+        chat = ChatMessage.objects.create(sender=sender,thread_name=thread_name,message=message)
+        other_user_id = self.scope['url_route']['kwargs']['id']
+        user_id = self.scope['user'].id
+        sender_obj = User.objects.get(id=user_id)
+        receiver_obj = User.objects.get(id=other_user_id)
         
-        
+        if receiver == receiver_obj.username :
+            notification = Notification.objects.create(chat=chat,sender=sender_obj,receiver=receiver_obj,is_seen=False)
+            notification.save()
 class OnlineStatusConsumer(AsyncWebsocketConsumer):
     async def websocket_connect(self, event) :
         self.room_group_name = 'user'
@@ -145,6 +152,8 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         user_id = self.scope['user'].id
         self.room_group_name = f'{user_id}'
         
+        print(self.room_group_name)
+        
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
@@ -152,6 +161,21 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         
         await self.accept()
         
+        
+    async def send_notification(self,event):
+        data = json.loads(event['value'])
+        notification_count = data['notification_count']
+        receiver = data['receiver']
+        sender = data['sender']
+        seen = data['seen']
+        
+        await self.send(text_data=json.dumps({
+            'notification_count':notification_count,
+            'receiver' : receiver,
+            'sender':sender,
+            'seen':seen,
+        }))
+    
     async def websocket_disconnect(self, message):
         print("Notification consumer disconnected",message)
         

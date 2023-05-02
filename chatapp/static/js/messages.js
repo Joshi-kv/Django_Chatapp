@@ -2,13 +2,14 @@ let loc = window.location
 let wsStart = 'ws://'
 let id = JSON.parse(document.getElementById('json-username').textContent)
 let sender = JSON.parse(document.getElementById('json-message-username').textContent)
+let receiver = JSON.parse(document.getElementById('json-receiver').textContent)
 
 if (loc.protocol === 'https') {
     let wsStart = 'wss://'
 }
 
 let endpoint = wsStart + loc.host + '/chat/' + id + '/'
-console.log(endpoint);
+
 
 let chatBody = document.getElementById('chat-body')
 
@@ -23,13 +24,14 @@ let messageForm = $('#message-form')
 
 
 socket.onopen = async function(e){
-    console.log('On open',e)
+
     messageForm.submit((e)=>{
         e.preventDefault()
         let message = messageInput.val()
         let data = {
             'message':message,
-            'sender':sender
+            'sender':sender,
+            'receiver':receiver
         }
 
         //converting json object to json string
@@ -42,7 +44,7 @@ socket.onopen = async function(e){
 }
 
 socket.onmessage = async (e)=>{
-    console.log('On message',e)
+
     let data = JSON.parse(e.data)
     const message = data['message']
     

@@ -8,7 +8,8 @@
 <div class="chat-container">
     <div class="main">
       <div class="logo">
-        <a href="{% url 'Home:index' %}">ChatMe</a>
+        <a href="{% url 'Home:index' %}">ChatMe&nbsp;</a>
+        <i class="fa fa-solid fa-bell"></i>
       </div>
 
       <div class="sub-main">
@@ -47,10 +48,11 @@
         <div class="name">
           <h5>{{friend.user}}</h5>
         </div>
+        <div class="msg" id='{{friend.user.username}}-count'></div>&nbsp;
         <div class="time_new_msg">
-  
-        <div class="msg"><i class="fa fa-solid fa-bell"></i></div>
-  
+        
+        <div class="msg"><i class="fa fa-solid fa-bell" id="{{friend.user.username}}-bell"></i></div>
+        
           
         </div>
       </div>

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from . models import ChatMessage,ChatNotification
+from . models import ChatMessage,Notification
 # Register your models here.
 
-admin.site.register([ChatMessage,ChatNotification]) 
+admin.site.register([ChatMessage,Notification]) 
 

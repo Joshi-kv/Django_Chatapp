@@ -14,7 +14,7 @@ let onlineEndpoint = onlineWsStart + onlineLocation.host + '/online/'
 let onlineStatus = new WebSocket(onlineEndpoint)
 
 onlineStatus.onopen = function (e) {
-    console.log('online connection ',e);
+
 
     //sending logged user data to consumer
     onlineStatus.send(JSON.stringify({
@@ -31,7 +31,7 @@ window.addEventListener('beforeunload',function(e){
 })
 
 onlineStatus.onmessage = function(e) {
-    console.log(e);
+
     let data = JSON.parse(e.data)
     if(data.username !== loggedinUser){
         let onlineImage = document.getElementById(`${data.username}-image`)

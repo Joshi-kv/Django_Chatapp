@@ -242,9 +242,14 @@ svg{
     height: 280px;
     /* border: 2px solid slateblue; */
     overflow: auto;
+    
     /* display: flex;
     align-items: flex-start;
     justify-content: center; */
+}
+
+.chat-body::-webkit-scrollbar{
+    display: none;
 }
 
 #myform{
