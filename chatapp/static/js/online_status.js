@@ -42,12 +42,14 @@ onlineStatus.onmessage = function(e) {
             onlineCaption.classList.remove('offline-caption')
             onlineImage.classList.add('online')
             onlineCaption.classList.add('online-caption')
+            onlineCaption.innerHTML ='Active'
 
         }else{
             onlineImage.classList.remove('online')
             onlineCaption.classList.remove('online-caption')
             onlineImage.classList.add('offline')
             onlineCaption.classList.add('offline-caption')
+            onlineCaption.innerHTML = 'Offline'
         }
        
     }

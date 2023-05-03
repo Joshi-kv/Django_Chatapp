@@ -303,13 +303,15 @@ button{
     display: flex;
     align-items: center;
     padding:10px 10px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 
 .chat-box-sent{
     background-color: rebeccapurple;
     color: white;
     float: right;
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: 1rem;
    
 }
 
@@ -317,6 +319,9 @@ button{
     background-color: #7f32cb;
     color: white;
     float: left;
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+
    
 }
 
